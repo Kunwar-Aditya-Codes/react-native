@@ -9,18 +9,24 @@ import {
 
 export default function App() {
   const [background, setBackground] = useState<string>('#ffffff');
+  const [shapeColor, setShapeColor] = useState<string>('#ffffff');
 
   const changeColor = () => {
     const hexRange = '0123456789ABCDEF';
 
     let hex = '#';
-
     for (let i = 0; i < 6; i++) {
       const charIndex = Math.floor(Math.random() * hexRange.length);
       hex += hexRange.charAt(charIndex);
     }
-
     setBackground(hex);
+
+    let shapeHex = '#';
+    for (let i = 0; i < 6; i++) {
+      const charIndex = Math.floor(Math.random() * hexRange.length);
+      shapeHex += hexRange.charAt(charIndex);
+    }
+    setShapeColor(shapeHex);
   };
 
   return (
@@ -33,6 +39,25 @@ export default function App() {
             backgroundColor: background,
           },
         ]}>
+        <View
+          style={[
+            styles.square,
+            {
+              backgroundColor: shapeColor,
+            },
+          ]}>
+          <Text>Square</Text>
+        </View>
+        <View
+          style={[
+            styles.circle,
+            {
+              backgroundColor: shapeColor,
+            },
+          ]}>
+          <Text>Circle</Text>
+        </View>
+
         <TouchableOpacity onPress={changeColor}>
           <View style={styles.actionButton}>
             <Text style={styles.actionButtonText}>Press Me!</Text>
@@ -47,9 +72,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
   },
 
+  square: {
+    width: 150,
+    height: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 4,
+    borderWidth: 4,
+    borderColor: 'black',
+  },
+
+  circle: {
+    width: 150,
+    height: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 100,
+    borderWidth: 4,
+    borderColor: 'black',
+  },
   actionButton: {
     backgroundColor: '#E07C24',
     padding: 16,
