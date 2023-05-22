@@ -1,4 +1,11 @@
-import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  FlatList,
+} from 'react-native';
 
 import Japan from '../assets/japan.jpg';
 import America from '../assets/usa.jpg';
@@ -73,19 +80,26 @@ export default function App() {
         />
       </View>
       <View style={styles.cardContainer}>
-        {cardData.map(card => (
-          <Pressable
-            key={card.id}
-            onPress={() => convertCurrency(card.conversionRate.toString())}>
-            <FlatCard
-              key={card.id}
-              country={card.country}
-              flag={card.flag}
-              currency={card.currency}
-              conversionRate={card.conversionRate}
-            />
-          </Pressable>
-        ))}
+        {/* Changge to Flatlist */}
+
+        <FlatList
+          data={cardData}
+          numColumns={3}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => (
+            <Pressable
+              key={item.id}
+              onPress={() => convertCurrency(item.conversionRate.toString())}>
+              <FlatCard
+                key={item.id}
+                country={item.country}
+                flag={item.flag}
+                currency={item.currency}
+                conversionRate={item.conversionRate}
+              />
+            </Pressable>
+          )}
+        />
       </View>
     </View>
   );
